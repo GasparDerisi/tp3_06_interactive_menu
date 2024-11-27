@@ -96,18 +96,21 @@ const char* str_menu_3_power[] = {
 uint32_t n_power = 2;
 
 const char* str_menu_3_spin[] = {
-    "L               ",
-    "R               "
+    "L",
+    "R"
 };
 
 uint32_t n_spin = 2;
 uint32_t n_speed = 10;
 
-char str_linea_1[17] = "Menu principal";
-char str_linea_2[17] = "Pulse 'menu'";
+char str_linea_1[16] = "Menu principal";
+char str_linea_2[16] = "Pulse 'menu'";
 
-char str_linea_1_aux[17];
-char str_linea_2_aux[17];
+
+
+
+char str_linea_1_aux[16];
+char str_linea_2_aux[16];
 
 
 
@@ -255,7 +258,7 @@ void task_menu_update(void *parameters)
 
 
 				case ST_MENU_1:
-					strcpy (str_linea_1, "Enter/Next/Esc  ");
+					strcpy (str_linea_1, "Enter/Next/Esc");
 					strcpy(str_linea_2, str_menu_1[p_task_menu_dta->internal_state]);
 					if ((p_task_menu_dta->flag == true) && (p_task_menu_dta->event == EV_BTN_ESCAPE_ACTIVE))
 					{
@@ -415,21 +418,28 @@ void task_menu_update(void *parameters)
 					break;
 			}
 
+			str_linea_1[15] = '\0';
+			str_linea_2[15] = '\0';
+
 			if (strcmp(str_linea_1, str_linea_1_aux) != 0){
 				clear_display(0);
 				strcpy(str_linea_1_aux, str_linea_1);
+
+				displayCharPositionWrite(0, 0);
+				displayStringWrite(str_linea_1);
 			}
 
 			if (strcmp(str_linea_2, str_linea_2_aux) != 0){
 				clear_display(1);
 				strcpy(str_linea_2_aux, str_linea_2);
+
+				displayCharPositionWrite(0, 1);
+				displayStringWrite(str_linea_2);
 			}
 
-			displayCharPositionWrite(0, 0);
-			displayStringWrite(str_linea_1);
 
-			displayCharPositionWrite(0, 1);
-			displayStringWrite(str_linea_2);
+
+
 		}
 	}
 }
